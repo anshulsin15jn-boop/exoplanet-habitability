@@ -1,0 +1,5 @@
+Downloaded: 2026-10-24T18:01:13
+Endpoint: https://exoplanetarchive.ipac.caltech.edu/TAP/sync
+Format: csv
+Query:
+SELECT pl_name, MIN(releasedate) AS first_release, MAX(releasedate) AS last_release, MAX(rowupdate) AS last_rowupdate FROM ps GROUP BY pl_name

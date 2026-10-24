@@ -26,7 +26,7 @@ MINIMUM_MASS_TYPES = ["Msini"]
 TRUE_MASS_TYPES = ["Mass", "Msin(i)/sin(i)"]
 
 PATH_MEASURED_RADIUS = "measured radius"
-PATH_MINIMUM_MASS = "minimum mass"
+PATH_MASS_ONLY = "mass only"
 PATH_EXCLUDED = "excluded"
 
 
@@ -79,7 +79,7 @@ def assign_rocky_path(planets):
 
     result["rocky_path"] = PATH_EXCLUDED
     result.loc[use_radius, "rocky_path"] = PATH_MEASURED_RADIUS
-    result.loc[use_mass, "rocky_path"] = PATH_MINIMUM_MASS
+    result.loc[use_mass, "rocky_path"] = PATH_MASS_ONLY
 
     result["exclusion_reason"] = ""
     result.loc[is_microlensing, "exclusion_reason"] = "microlensing: projected separation, no stellar data"
@@ -103,7 +103,7 @@ def label_rockiness(planets):
     radius = result["pl_rade"]
     mass = result["pl_bmasse"]
     on_radius_path = result["rocky_path"] == PATH_MEASURED_RADIUS
-    on_mass_path = result["rocky_path"] == PATH_MINIMUM_MASS
+    on_mass_path = result["rocky_path"] == PATH_MASS_ONLY
 
     result["rocky_label"] = ""
 

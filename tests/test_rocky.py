@@ -47,7 +47,7 @@ def test_mass_boundaries_for_minimum_mass():
         for m in [5.0, 5.01]
     ])
     result = classify(planets)
-    assert list(result["rocky_path"]) == ["minimum mass", "minimum mass"]
+    assert list(result["rocky_path"]) == ["mass only", "mass only"]
     assert list(result["mass_type"]) == ["minimum", "minimum"]
     assert list(result["rocky_label"]) == ["possibly rocky", "not rocky"]
 
@@ -57,7 +57,7 @@ def test_estimated_radius_is_ignored_for_radial_velocity():
     planet = make_planet(discoverymethod="Radial Velocity", pl_rade=1.0, pl_rade_reflink=CALCULATED,
                          pl_bmasse=12.0, pl_bmassprov="Msini")
     result = classify(planet).iloc[0]
-    assert result["rocky_path"] == "minimum mass"
+    assert result["rocky_path"] == "mass only"
     assert result["rocky_label"] == "not rocky"
 
 

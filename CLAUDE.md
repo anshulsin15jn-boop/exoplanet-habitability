@@ -59,7 +59,7 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
   [0, 1)) become NaN; rows are never dropped for them.
 - `rocky_path`: microlensing -> `excluded` (user decision); measured radius (reflink not
   "Calculated Value") -> `measured radius`; else measured mass (Msini, Mass, Msin(i)/sin(i)) ->
-  `minimum mass` (estimated radius ignored; `mass_type` = minimum/true); else `excluded`.
+  `mass only` (renamed from "minimum mass"; estimated radius ignored; `mass_type` = minimum/true); else `excluded`.
 - `rocky_label`: radius path R <= 1.6 rocky (Rogers 2015), 1.6 < R <= 2.0 possibly rocky,
   > 2.0 not rocky (2.0 from Bohl et al. 2026 Sec. 1 and 3); mass path M <= 5 possibly rocky,
   > 5 not rocky (Bohl et al. Sec. 1 and 3). Mass-path planets are never "rocky".
@@ -67,6 +67,22 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
   confirm, or change a rocky label (it equals the Chen & Kipping formula applied to the radius).
 - Bohl et al. used NEA default values (2025-12-20) with Gaia DR3 stellar updates, not pscomppars.
 - Figures use `src/plot_style.py` (`apply_style()`, fixed series color order).
+
+## Energy and habitable zone rules (Phase 3, user approved; code in `src/physics.py`, `src/habitable_zone.py`)
+- L = 10**st_lum, else R^2 (Teff/5772)^4. S = L/a^2; final `insol` = archive `pl_insol`, gaps filled by ours.
+- T_eq uses T0 = (1361 / 4 sigma)^0.25 = 278.3 K (IAU 2015 B3 + CODATA), not the brief's 278.6 K (S0 = 1367).
+- `flux_orbit_avg` = S / sqrt(1 - e^2) only when e is measured (`pl_orbeccenlim == 0`, has uncertainty,
+  0 <= e < 1). `hz_flux` = orbit-averaged where available, else S (Bohl Sec. 2 treats upper limits as e = 0).
+- HZ zones: simple windows (K14 solar values, ignore Teff); K14 conservative (Runaway Greenhouse 1 Me /
+  Max Greenhouse) and optimistic (Recent Venus / Early Mars), K14 Table 1; Bohl empirical = Kopparapu 2013
+  Table 3 RV/EM (reproduces Bohl Table 1); Bohl 3D = Ramirez & Kaltenegger 2018 Table 2 "Leconte" inner edge
+  + K13 Early Mars (known: ~0.08-0.12 higher than Bohl's printed 3D values for M dwarfs).
+- Strict Teff range 2600-7200 K (user decision): outside -> "outside model range", never extrapolated.
+  This removes TRAPPIST-1 d/e/f (2566 K).
+- Candidates (`data/processed/hz_candidates.csv`): rocky or possibly rocky AND `hz_k14_optimistic == "inside"`.
+- Post-Bohl flags from `ps` table snapshot (`data/raw/ps_dates_*.csv`): `new_since_bohl` (earliest
+  releasedate > 2025-12-20), `updated_since_bohl` (latest rowupdate > 2025-12-20), `after_bohl_cutoff` (either).
+  Phase 6 sets `after_bohl_cutoff` planets aside.
 
 ## Code rules
 - Keep notebook code compatible with Google Colab's Python (about 3.11-3.12): no 3.13+ only syntax.
@@ -103,4 +119,4 @@ py -3.14 -m venv .venv-pandas2
 - Phase 6: compare with NASA research (Kopparapu, HWO stars, Bohl et al.)
 - Final: notebook runs top to bottom, tests pass, CSVs in outputs/, figures/, README.md
 
-**Current phase:** Phase 2 complete (`data/processed/planets_classified.csv`; 1,808 rocky or possibly rocky). Next: Phase 3.
+**Current phase:** Phase 3 complete (45 candidates in the K14 optimistic zone, 28 conservative). Next: Phase 4.

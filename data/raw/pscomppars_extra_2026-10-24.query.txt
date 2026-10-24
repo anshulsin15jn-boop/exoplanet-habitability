@@ -1,0 +1,5 @@
+Downloaded: 2026-10-24T18:01:16
+Endpoint: https://exoplanetarchive.ipac.caltech.edu/TAP/sync
+Format: csv
+Query:
+SELECT pl_name, disc_pubdate, pl_orbeccen, pl_orbeccenlim, pl_orbeccenerr1, pl_orbeccenerr2 FROM pscomppars
