@@ -53,6 +53,11 @@ def test_missing_values():
     assert k14_status(1.0, np.nan) == "missing data"
 
 
+def test_clamp_teff_moves_only_out_of_range_values():
+    clamped = hz.clamp_teff(np.array([2566.0, 5000.0, 8000.0]), hz.KOPPARAPU_TEFF_RANGE)
+    assert list(clamped) == [2600.0, 5000.0, 7200.0]
+
+
 def test_simple_window_ignores_temperature():
     statuses = hz.hz_status([1.0, 1.0, 2.0], 1.776, 0.32)
     assert list(statuses) == ["inside", "inside", "too hot"]

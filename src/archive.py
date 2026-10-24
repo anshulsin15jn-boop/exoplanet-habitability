@@ -44,6 +44,34 @@ def download_tap_csv(adql, out_path):
     return out_path
 
 
+def download_file(url, out_path, source_note):
+    """Download any file byte-for-byte (e.g. a published catalog) and record where it came from.
+
+    Same safety rules as download_tap_csv: never overwrites, writes to ``.part`` first.
+    ``source_note`` (citation, licence) is saved next to it as ``<name>.source.txt``.
+    """
+    out_path = Path(out_path)
+    if out_path.exists():
+        raise FileExistsError(f"{out_path} already exists; snapshots are never overwritten")
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    response = requests.get(url, timeout=120)
+    response.raise_for_status()
+
+    part_path = out_path.with_name(out_path.name + ".part")
+    part_path.write_bytes(response.content)
+    part_path.replace(out_path)
+
+    note_path = out_path.with_name(out_path.stem + ".source.txt")
+    note_path.write_text(
+        f"Downloaded: {datetime.now().isoformat(timespec='seconds')}\n"
+        f"URL: {url}\n"
+        f"{source_note}\n",
+        newline="\n",
+    )
+    return out_path
+
+
 def latest_snapshot(folder, prefix):
     """Return the newest ``<prefix>_YYYY-MM-DD.csv`` in ``folder``, or None if there is none.
 

@@ -50,6 +50,16 @@ def in_teff_range(teff, teff_range):
     return (teff >= low) & (teff <= high)
 
 
+def clamp_teff(teff, teff_range):
+    """Move temperatures outside [low, high] to the nearest edge (e.g. 2566 K -> 2600 K).
+
+    Used only for the flagged "limits evaluated at the nearest valid temperature" caveat,
+    never for the strict HZ flags.
+    """
+    low, high = teff_range
+    return np.clip(teff, low, high)
+
+
 def hz_flux_limit(teff, coefficients, teff_range=None):
     """Flux at one HZ boundary for a star of temperature teff.
 

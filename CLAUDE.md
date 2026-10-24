@@ -39,6 +39,10 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
    documentation or the source paper, and say so when unsure.
 6. Before deleting or overwriting any existing file, show what will change and wait for
    confirmation.
+7. Commit messages: a specific summary line (e.g. "Phase 3: compute stellar flux, habitable zones,
+   and candidate table") plus a short body listing the main changes. Every phase summary shows the
+   commit hash next to the full commit message. History was never pushed; reword only unpushed commits,
+   and only after showing the plan.
 
 ## Data rules
 - Download from the archive's TAP API once; save the raw CSV in `data/raw/` with the download
@@ -52,7 +56,8 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
   `pl_rade_reflink` and `pl_insol_reflink` contain "Calculated Value" when the archive computed
   the number (radius from mass via Chen & Kipping 2017; insolation from L/a^2), and
   `pl_bmassprov` is one of Mass / Msini / Msin(i)/sin(i) / M-R relationship.
-- `src/archive.py` has `download_tap_csv` and `latest_snapshot`; reuse them for any archive table.
+- `src/archive.py` has `download_tap_csv`, `download_file` (non-TAP files, writes a `.source.txt`
+  citation/licence note) and `latest_snapshot`; reuse them for every download.
 
 ## Rocky classification rules (Phase 2, user approved; code in `src/rocky.py`)
 - Impossible values (<= 0 for sizes/masses/orbits/temps/distance/insolation; eccentricity outside
@@ -78,11 +83,19 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
   Table 3 RV/EM (reproduces Bohl Table 1); Bohl 3D = Ramirez & Kaltenegger 2018 Table 2 "Leconte" inner edge
   + K13 Early Mars (known: ~0.08-0.12 higher than Bohl's printed 3D values for M dwarfs).
 - Strict Teff range 2600-7200 K (user decision): outside -> "outside model range", never extrapolated.
-  This removes TRAPPIST-1 d/e/f (2566 K).
-- Candidates (`data/processed/hz_candidates.csv`): rocky or possibly rocky AND `hz_k14_optimistic == "inside"`.
+- Candidates (`data/processed/hz_candidates.csv`, 49): rocky or possibly rocky AND (`hz_k14_optimistic ==
+  "inside"` OR star outside 2600-7200 K but inside K14 optimistic limits evaluated at the nearest valid Teff,
+  `clamp_teff`). The clamped extras (TRAPPIST-1 d/e/f/g) are kept with a `model_range_caveat` (user decision).
+- Second 3D zone `hz_bohl_3d_interp`: linear interpolation of Bohl's printed `3DinnerFluxLimit` and
+  `outerFluxLimit` vs stellar Teff from their Zenodo Table 1 (`data/raw/bohl2026_table1_*.csv`, CC-BY-4.0);
+  outside 2566-5599 K -> "outside model range". Recovers their 24 planets from their own fluxes.
+  Their CSV cites the 3D limit as Leconte 2013 + Ramirez & Kaltenegger **2014** (not 2018).
+- Candidate selection uses `hz_flux`; switching to circular flux changes 0 planets in every zone.
 - Post-Bohl flags from `ps` table snapshot (`data/raw/ps_dates_*.csv`): `new_since_bohl` (earliest
   releasedate > 2025-12-20), `updated_since_bohl` (latest rowupdate > 2025-12-20), `after_bohl_cutoff` (either).
-  Phase 6 sets `after_bohl_cutoff` planets aside.
+- **Phase 6 rule (user decision):** set aside ONLY `new_since_bohl` planets (157). Planets that were only
+  `updated_since_bohl` stay in the comparison and are flagged as a possible reason for disagreement.
+- Match planet names with Bohl et al. by lowercase + collapsed spaces (`normalize_name`).
 
 ## Code rules
 - Keep notebook code compatible with Google Colab's Python (about 3.11-3.12): no 3.13+ only syntax.
@@ -119,4 +132,5 @@ py -3.14 -m venv .venv-pandas2
 - Phase 6: compare with NASA research (Kopparapu, HWO stars, Bohl et al.)
 - Final: notebook runs top to bottom, tests pass, CSVs in outputs/, figures/, README.md
 
-**Current phase:** Phase 3 complete (45 candidates in the K14 optimistic zone, 28 conservative). Next: Phase 4.
+**Current phase:** Phase 3 complete plus pre-Phase 4 changes (49 candidates: 45 strict + 4 flagged
+TRAPPIST-1; 28 conservative). Next: Phase 4.
