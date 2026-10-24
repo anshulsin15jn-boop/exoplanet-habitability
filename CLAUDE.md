@@ -54,6 +54,20 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
   `pl_bmassprov` is one of Mass / Msini / Msin(i)/sin(i) / M-R relationship.
 - `src/archive.py` has `download_tap_csv` and `latest_snapshot`; reuse them for any archive table.
 
+## Rocky classification rules (Phase 2, user approved; code in `src/rocky.py`)
+- Impossible values (<= 0 for sizes/masses/orbits/temps/distance/insolation; eccentricity outside
+  [0, 1)) become NaN; rows are never dropped for them.
+- `rocky_path`: microlensing -> `excluded` (user decision); measured radius (reflink not
+  "Calculated Value") -> `measured radius`; else measured mass (Msini, Mass, Msin(i)/sin(i)) ->
+  `minimum mass` (estimated radius ignored; `mass_type` = minimum/true); else `excluded`.
+- `rocky_label`: radius path R <= 1.6 rocky (Rogers 2015), 1.6 < R <= 2.0 possibly rocky,
+  > 2.0 not rocky (2.0 from Bohl et al. 2026 Sec. 1 and 3); mass path M <= 5 possibly rocky,
+  > 5 not rocky (Bohl et al. Sec. 1 and 3). Mass-path planets are never "rocky".
+- **Circularity rule:** a mass with `pl_bmassprov == "M-R relationship"` is never used to support,
+  confirm, or change a rocky label (it equals the Chen & Kipping formula applied to the radius).
+- Bohl et al. used NEA default values (2025-12-20) with Gaia DR3 stellar updates, not pscomppars.
+- Figures use `src/plot_style.py` (`apply_style()`, fixed series color order).
+
 ## Code rules
 - Keep notebook code compatible with Google Colab's Python (about 3.11-3.12): no 3.13+ only syntax.
 - Code must run on pandas 2.x (Colab) and 3.x (local). Assign with `df.loc[mask, "col"] = ...`
@@ -89,4 +103,4 @@ py -3.14 -m venv .venv-pandas2
 - Phase 6: compare with NASA research (Kopparapu, HWO stars, Bohl et al.)
 - Final: notebook runs top to bottom, tests pass, CSVs in outputs/, figures/, README.md
 
-**Current phase:** Phase 1 complete (snapshot `data/raw/pscomppars_2026-10-24.csv`, 6,451 planets). Next: Phase 2.
+**Current phase:** Phase 2 complete (`data/processed/planets_classified.csv`; 1,808 rocky or possibly rocky). Next: Phase 3.

@@ -33,11 +33,13 @@ def download_tap_csv(adql, out_path):
     part_path.replace(out_path)
 
     query_path = out_path.with_name(out_path.stem + ".query.txt")
+    # newline="\n" keeps LF line endings on Windows, like the CSV from the archive
     query_path.write_text(
         f"Downloaded: {datetime.now().isoformat(timespec='seconds')}\n"
         f"Endpoint: {TAP_SYNC_URL}\n"
         f"Format: csv\n"
-        f"Query:\n{adql}\n"
+        f"Query:\n{adql}\n",
+        newline="\n",
     )
     return out_path
 
