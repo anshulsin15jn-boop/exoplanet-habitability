@@ -1,0 +1,5 @@
+Downloaded: 2026-10-24T17:25:04
+Endpoint: https://exoplanetarchive.ipac.caltech.edu/TAP/sync
+Format: csv
+Query:
+SELECT pl_name, hostname, discoverymethod, disc_year, pl_rade, pl_bmasse, pl_orbper, pl_orbsmax, pl_orbeccen, pl_insol, pl_eqt, st_teff, st_rad, st_lum, st_mass, sy_dist, pl_rade_reflink, pl_bmassprov, pl_insol_reflink FROM pscomppars

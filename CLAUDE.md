@@ -48,6 +48,11 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
 - Downloads are written to a `*.part` file and renamed when complete (`*.part` is git-ignored).
 - Code creates the folders it needs (`mkdir(parents=True, exist_ok=True)`).
 - Drop rows only for the columns a given step actually needs (never a blanket `dropna()`).
+- The pscomppars snapshot has the user's 16 columns plus 3 source columns (user approved):
+  `pl_rade_reflink` and `pl_insol_reflink` contain "Calculated Value" when the archive computed
+  the number (radius from mass via Chen & Kipping 2017; insolation from L/a^2), and
+  `pl_bmassprov` is one of Mass / Msini / Msin(i)/sin(i) / M-R relationship.
+- `src/archive.py` has `download_tap_csv` and `latest_snapshot`; reuse them for any archive table.
 
 ## Code rules
 - Keep notebook code compatible with Google Colab's Python (about 3.11-3.12): no 3.13+ only syntax.
@@ -84,4 +89,4 @@ py -3.14 -m venv .venv-pandas2
 - Phase 6: compare with NASA research (Kopparapu, HWO stars, Bohl et al.)
 - Final: notebook runs top to bottom, tests pass, CSVs in outputs/, figures/, README.md
 
-**Current phase:** Phase 0 complete (plus raw-data and pandas 2/3 setup). Next: Phase 1.
+**Current phase:** Phase 1 complete (snapshot `data/raw/pscomppars_2026-10-24.csv`, 6,451 planets). Next: Phase 2.
