@@ -1,0 +1,2 @@
+# Raw archive snapshots are stored byte-for-byte: no line-ending conversion
+data/raw/** -text
