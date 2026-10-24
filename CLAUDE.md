@@ -101,6 +101,20 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
 - **Phase 6 rule (user decision):** set aside ONLY `new_since_bohl` planets (157). Planets that were only
   `updated_since_bohl` stay in the comparison and are flagged as a possible reason for disagreement.
 - Match planet names with Bohl et al. by lowercase + collapsed spaces (`normalize_name`).
+- **Phase 6 to-do (user request):** compare the `pscomppars` values with the archive's default solution
+  (`ps` table, `default_flag = 1`) for GJ 682 b, Kepler-1649 c and Kepler-441 b, to explain their flux gaps
+  (up to 4x) with Bohl et al. (Bohl used NEA default values + Gaia DR3 stellar updates).
+
+## Clustering rules (Phase 5, user approved; code in `src/clustering.py`)
+- Cluster only measured-radius planets with all four features (4,622): log10 radius, log10 `hz_flux`,
+  log10 period, raw Teff (brief); StandardScaler; KMeans `n_init=10`, `random_state=0`; stability checked
+  with adjusted Rand index over seeds 0-4. Clusters renumbered by median flux (hottest = 0).
+- Main `cluster` uses k = 4 (best silhouette tie, stable); `cluster_k6` kept for comparison. k >= 5 always
+  isolates KOI-55 b/c (27,730 K star).
+- Similarity to Earth = 1 / (1 + distance) in scaled space: `similarity_4feat` and `similarity_radius_flux`
+  (unweighted ESI-style analogue; PHL's exact ESI equation was not verifiable, so not reproduced).
+  Output: `data/processed/planets_clustered.csv`.
+- Cluster plots: 3 hues + dark neutral for the giants, plus marker shapes (4 hues fail the all-pairs check).
 
 ## Code rules
 - Keep notebook code compatible with Google Colab's Python (about 3.11-3.12): no 3.13+ only syntax.
@@ -137,4 +151,4 @@ py -3.14 -m venv .venv-pandas2
 - Phase 6: compare with NASA research (Kopparapu, HWO stars, Bohl et al.)
 - Final: notebook runs top to bottom, tests pass, CSVs in outputs/, figures/, README.md
 
-**Current phase:** Phase 4 complete (two main figures). Next: Phase 5.
+**Current phase:** Phase 5 complete (k = 4 clusters, Earth similarity scores). Next: Phase 6.
