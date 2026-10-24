@@ -15,6 +15,23 @@ AXIS = "#c3c2b7"
 
 SERIES = ["#2a78d6", "#eb6834", "#1baf7a"]  # blue, orange, aqua: use in this order
 SHADE = "#f0efec"  # light neutral for shaded regions
+SHADE_DARK = "#e1e0d9"  # slightly darker neutral, for a band nested inside SHADE
+RING = TEXT_PRIMARY  # outline that marks highlighted points (candidates)
+
+# Diverging star-temperature colors: red = cooler than the Sun, neutral = Sun-like, blue = hotter
+TEFF_COOL = "#d03b3b"
+TEFF_NEUTRAL = "#e8e6e0"
+TEFF_HOT = "#1c5cab"
+SUN_TEFF = 5772.0  # K, IAU 2015 Resolution B3
+
+
+def teff_colormap():
+    """Colormap and norm for stellar temperature, centered on the Sun (2500-7500 K, clipped)."""
+    from matplotlib.colors import LinearSegmentedColormap, TwoSlopeNorm
+
+    cmap = LinearSegmentedColormap.from_list("teff", [TEFF_COOL, TEFF_NEUTRAL, TEFF_HOT])
+    norm = TwoSlopeNorm(vmin=2500.0, vcenter=SUN_TEFF, vmax=7500.0)
+    return cmap, norm
 
 
 def apply_style():

@@ -71,7 +71,12 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
 - **Circularity rule:** a mass with `pl_bmassprov == "M-R relationship"` is never used to support,
   confirm, or change a rocky label (it equals the Chen & Kipping formula applied to the radius).
 - Bohl et al. used NEA default values (2025-12-20) with Gaia DR3 stellar updates, not pscomppars.
-- Figures use `src/plot_style.py` (`apply_style()`, fixed series color order).
+- Figures use `src/plot_style.py` (`apply_style()`, fixed series color order, `teff_colormap()` diverging
+  red-neutral-blue centered on 5772 K). Label points with `src/plot_labels.annotate_without_overlap` and
+  assert `not text_boxes_overlap(...)` (it redraws first; Annotation extents include leader lines, so it
+  measures text only).
+- Figures so far: `radius_histogram.png`, `insolation_comparison.png`, `radius_vs_insolation.png`,
+  `teff_vs_insolation_hz.png`. Mass-only candidates are drawn hollow at the archive's estimated radius.
 
 ## Energy and habitable zone rules (Phase 3, user approved; code in `src/physics.py`, `src/habitable_zone.py`)
 - L = 10**st_lum, else R^2 (Teff/5772)^4. S = L/a^2; final `insol` = archive `pl_insol`, gaps filled by ours.
@@ -132,5 +137,4 @@ py -3.14 -m venv .venv-pandas2
 - Phase 6: compare with NASA research (Kopparapu, HWO stars, Bohl et al.)
 - Final: notebook runs top to bottom, tests pass, CSVs in outputs/, figures/, README.md
 
-**Current phase:** Phase 3 complete plus pre-Phase 4 changes (49 candidates: 45 strict + 4 flagged
-TRAPPIST-1; 28 conservative). Next: Phase 4.
+**Current phase:** Phase 4 complete (two main figures). Next: Phase 5.
