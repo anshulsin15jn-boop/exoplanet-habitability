@@ -1,0 +1,19 @@
+# Virtual environment
+.venv/
+
+# Python caches
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+outputs/_run/
+
+# Raw data is re-downloadable from the NASA Exoplanet Archive
+data/raw/*
+!data/raw/.gitkeep
+
+# OS files
+.DS_Store
+Thumbs.db
