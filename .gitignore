@@ -1,5 +1,5 @@
-# Virtual environment
-.venv/
+# Virtual environments (also covers .venv-pandas2/)
+.venv*/
 
 # Python caches
 __pycache__/
@@ -10,9 +10,12 @@ __pycache__/
 .ipynb_checkpoints/
 outputs/_run/
 
-# Raw data is re-downloadable from the NASA Exoplanet Archive
-data/raw/*
-!data/raw/.gitkeep
+# Temporary files: unfinished downloads are written as *.part, then renamed when complete
+*.part
+*.tmp
+
+# Large files (GitHub rejects anything over 100 MB): keep these in data/large/, never in data/raw/
+data/large/
 
 # OS files
 .DS_Store

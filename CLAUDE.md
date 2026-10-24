@@ -18,7 +18,8 @@ and intro statistics. Has **not** taken linear algebra.
 
 ## Folder layout
 ```
-data/raw/          untouched archive downloads, dated filenames (git-ignored)
+data/raw/          untouched archive downloads, dated filenames, COMMITTED for reproducibility
+data/large/        files over 50 MB (git-ignored; none expected)
 data/processed/    cleaned tables and candidate lists
 notebooks/         exoplanet_habitability.ipynb (main work; must also open in Google Colab)
 src/physics.py     reusable physics functions (insolation, luminosity, T_eq), tested
@@ -42,10 +43,19 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
 ## Data rules
 - Download from the archive's TAP API once; save the raw CSV in `data/raw/` with the download
   date in the filename. Afterward, load from that file instead of calling the API again.
+- Commit every raw snapshot (the archive updates over time). Never overwrite an existing
+  snapshot; a new download gets a new date. Files over 50 MB go in `data/large/` instead.
+- Downloads are written to a `*.part` file and renamed when complete (`*.part` is git-ignored).
+- Code creates the folders it needs (`mkdir(parents=True, exist_ok=True)`).
 - Drop rows only for the columns a given step actually needs (never a blanket `dropna()`).
 
 ## Code rules
 - Keep notebook code compatible with Google Colab's Python (about 3.11-3.12): no 3.13+ only syntax.
+- Code must run on pandas 2.x (Colab) and 3.x (local). Assign with `df.loc[mask, "col"] = ...`
+  (never chained assignment), use `.copy()` for subsets we modify later, and never select text
+  columns with `select_dtypes(include="object")`. When output differs between versions, add a
+  one-line note pointing to the notebook's "pandas 2 vs pandas 3" cell.
+- At the end of each phase, run the notebook in both `.venv` (pandas 3) and `.venv-pandas2`.
 - The notebook adds the project root to `sys.path` so `from src import physics` works.
 
 ## How to run (Windows)
@@ -57,6 +67,13 @@ jupyter nbconvert --to notebook --execute notebooks/exoplanet_habitability.ipynb
 Set up from scratch: `py -3.14 -m venv .venv` then `pip install -r requirements.txt`
 (`requirements-lock.txt` holds the exact tested versions).
 
+pandas 2 check environment:
+```
+py -3.14 -m venv .venv-pandas2
+.venv-pandas2\Scripts\python -m pip install -r requirements.txt "pandas>=2.0,<3"
+.venv-pandas2\Scripts\jupyter nbconvert --to notebook --execute notebooks/exoplanet_habitability.ipynb --output-dir outputs/_run/pandas2
+```
+
 ## Roadmap
 - Phase 0: project setup
 - Phase 1: load the data (pscomppars via TAP)
@@ -67,4 +84,4 @@ Set up from scratch: `py -3.14 -m venv .venv` then `pip install -r requirements.
 - Phase 6: compare with NASA research (Kopparapu, HWO stars, Bohl et al.)
 - Final: notebook runs top to bottom, tests pass, CSVs in outputs/, figures/, README.md
 
-**Current phase:** Phase 0 complete. Next: Phase 1.
+**Current phase:** Phase 0 complete (plus raw-data and pandas 2/3 setup). Next: Phase 1.
