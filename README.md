@@ -1,5 +1,8 @@
 # Exoplanet Habitability
 
+[![Tests](https://github.com/anshulsin15jn-boop/exoplanet-habitability/actions/workflows/tests.yml/badge.svg)](https://github.com/anshulsin15jn-boop/exoplanet-habitability/actions/workflows/tests.yml)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/anshulsin15jn-boop/exoplanet-habitability/blob/main/notebooks/exoplanet_habitability.ipynb)
+
 This project uses data from the NASA Exoplanet Archive to find rocky exoplanets in the habitable zone of their stars. The habitable zone is the range of distances where a rocky planet with an Earth like atmosphere could keep liquid water on its surface. The results are compared with three NASA linked research sources: the Kopparapu et al. habitable zone model, the target star list for NASA's Habitable Worlds Observatory, and the published catalog of Bohl et al. (2026).
 
 ## Summary of findings
@@ -51,7 +54,9 @@ This project identified 50 small planets in the habitable zones of their stars u
 
 ## How to run
 
-Requirements include Python 3.11 or newer and Git.
+To run it in your browser, use the Open in Colab badge. The first notebook cell then downloads the project and installs what Colab is missing.
+
+To run it locally, the requirements include Python 3.11 or newer and Git.
 
 ```
 git clone <this repository>

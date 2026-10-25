@@ -1,0 +1,45 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  pytest:
+    name: pytest (Python ${{ matrix.python }}, pandas ${{ matrix.pandas-major }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python: "3.11"
+            pandas-major: "2"
+            pandas-spec: "pandas>=2.0,<3"
+          - python: "3.14"
+            pandas-major: "3"
+            pandas-spec: "pandas>=3"
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+
+      - name: Install dependencies (everything in requirements.txt except jupyter)
+        run: |
+          python -m pip install --upgrade pip
+          grep -v '^jupyter' requirements.txt > ci-requirements.txt
+          python -m pip install -r ci-requirements.txt "${{ matrix.pandas-spec }}"
+
+      - name: Check installed versions
+        run: |
+          python -c "import sys, numpy, pandas, sklearn, matplotlib; print('Python', sys.version.split()[0], '| pandas', pandas.__version__, '| numpy', numpy.__version__, '| scikit-learn', sklearn.__version__, '| matplotlib', matplotlib.__version__)"
+          python -c "import pandas, sys; sys.exit(0 if pandas.__version__.split('.')[0] == '${{ matrix.pandas-major }}' else 'expected pandas ${{ matrix.pandas-major }}.x, got ' + pandas.__version__)"
+
+      - name: Run tests
+        run: python -m pytest -v

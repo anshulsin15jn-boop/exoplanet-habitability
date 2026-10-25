@@ -41,6 +41,10 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
    everything up to 78d392b is pushed, so never rewrite or force-push that history.
 8. Before any code that uses a new concept, explain the concept in 2-3 plain sentences, and avoid
    linear algebra in explanations. Prefer clear, readable code over clever code.
+9. CI: `.github/workflows/tests.yml` runs pytest on Python 3.11 + pandas 2 and Python 3.14 + pandas 3 for every
+   push and pull request. Push changes to a branch first; move `main` only after that run passes.
+10. The notebook's first code cell (tag `colab-setup`) clones the repo and installs packages only inside Google
+   Colab; `tests/test_colab_cell.py` checks it does nothing elsewhere. Keep it the first code cell.
 
 ## Data rules
 - Download from the archive's TAP API once; save the raw CSV in `data/raw/` with the download
