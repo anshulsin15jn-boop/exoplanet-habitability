@@ -41,7 +41,7 @@ def candidate_box(anchor, size, direction, distance):
 
 
 def annotate_without_overlap(ax, xs, ys, texts, obstacle_xs=(), obstacle_ys=(), obstacle_radius=6,
-                             extra_obstacles=(), fontsize=8, color="#0b0b0b", line_color="#898781"):
+                             extra_obstacles=(), fontsize=8, color="#0b0b0b", line_color="#898781", max_rings=30):
     """Label points on a Matplotlib axes so no two labels overlap.
 
     xs, ys, texts: the points to label, most important first (data coordinates).
@@ -72,7 +72,7 @@ def annotate_without_overlap(ax, xs, ys, texts, obstacle_xs=(), obstacle_ys=(), 
     plot_area = ax.get_window_extent(renderer)
     bounds = (plot_area.x0, plot_area.y0, plot_area.x1, plot_area.y1)
 
-    boxes = place_labels(anchors, sizes, marker_boxes + list(extra_obstacles), bounds)
+    boxes = place_labels(anchors, sizes, marker_boxes + list(extra_obstacles), bounds, max_rings=max_rings)
 
     drawn, skipped = [], []
     to_data = ax.transData.inverted()

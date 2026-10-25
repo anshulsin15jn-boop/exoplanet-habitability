@@ -80,6 +80,11 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
 
 ## Energy and habitable zone rules (Phase 3, user approved; code in `src/physics.py`, `src/habitable_zone.py`)
 - L = 10**st_lum, else R^2 (Teff/5772)^4. S = L/a^2; final `insol` = archive `pl_insol`, gaps filled by ours.
+- Flux overrides (user approved): `data/processed/flux_overrides.csv` (planet, original_flux, corrected_flux,
+  source, reason) replaces `insol` in Phase 3 after the gap fill; the original stays in `insol_original` and the
+  source text in `flux_override`. The notebook asserts the archive value still equals original_flux and re-derives
+  each corrected value from `data/raw/ps_solutions_check_*.csv`. Current: GJ 682 b 0.3125 -> 0.9284,
+  Kepler-441 b 0.21 -> 0.2747 (self-consistent L and Kepler's-law orbit, not Bohl's values, to avoid circularity).
 - T_eq uses T0 = (1361 / 4 sigma)^0.25 = 278.3 K (IAU 2015 B3 + CODATA), not the brief's 278.6 K (S0 = 1367).
 - `flux_orbit_avg` = S / sqrt(1 - e^2) only when e is measured (`pl_orbeccenlim == 0`, has uncertainty,
   0 <= e < 1). `hz_flux` = orbit-averaged where available, else S (Bohl Sec. 2 treats upper limits as e = 0).
@@ -116,6 +121,8 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
   (Dabhade et al. 2025, arXiv:2512.00899 eq. 7; user-supplied, verified). Ranks: `rank_4feat`, `rank_esi`.
   Output: `data/processed/planets_clustered.csv`.
 - Cluster plots: 3 hues + dark neutral for the giants, plus marker shapes (4 hues fail the all-pairs check).
+- Cluster overlap with Bohl et al. is 'consistent, not independent confirmation': flux and Teff define the HZ
+  and are clustering features. Seed stability for k >= 5 is fragile (one flux fix moved k=5 from 0.54 to 0.95).
 
 ## Code rules
 - Keep notebook code compatible with Google Colab's Python (about 3.11-3.12): no 3.13+ only syntax.
@@ -159,4 +166,4 @@ py -3.14 -m venv .venv-pandas2
 - Precision/recall reported with and without `new_since_bohl`; `disagreement_reason` explains every mismatch.
 - Deliverables: `outputs/hz_candidates.csv`, `outputs/comparison_table.csv`.
 
-**Current phase:** Phase 6 complete (precision 0.84 / 0.87 without new planets, recall 0.91). Next: final deliverables (README, full notebook run, outputs check).
+**Current phase:** Phase 6 complete with flux overrides (50 candidates; precision 0.84 / 0.875 without new planets, recall 0.933). Next: final deliverables (README, full notebook run, outputs check).

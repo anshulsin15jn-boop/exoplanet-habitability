@@ -1,0 +1,3 @@
+planet,original_flux,corrected_flux,source,reason
+GJ 682 b,0.3125,0.9284,Recomputed: L = R^2 (Teff/5772)^4 from archive R = 0.2983 Rsun and Teff = 3028 K; a = 0.0852 AU from Kepler's third law with P = 17.478 d and M = 0.27 Msun (Tuomi et al. 2014),Composite row pairs L = 0.0020 Lsun (Tuomi et al. 2014) with a stellar radius and temperature that imply L = 0.0067 Lsun; the luminosity is inconsistent
+Kepler-441 b,0.21,0.2747,Recomputed: L = 10^-1.051 Lsun (Torres et al. 2015); a = 0.5689 AU from Kepler's third law with P = 207.2482 d and M = 0.572 Msun (Torres et al. 2015),"Torres et al. 2015 report a = 0.64 AU, which contradicts Kepler's third law with their own period and stellar mass (0.569 AU)"
