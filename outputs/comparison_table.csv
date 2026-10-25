@@ -1,0 +1,54 @@
+planet,in_our_list,in_bohl_empirical,in_bohl_3d,host_is_hwo_target,cluster,cluster_k6,similarity_rank,esi_rank,our_flux,bohl_flux,new_since_bohl,updated_since_bohl,model_range_caveat,disagreement_reason
+GJ 1002 b,True,True,True,False,,,,,0.67,0.67,False,False,,
+GJ 1002 c,True,True,True,False,,,,,0.257,0.26,False,False,,
+GJ 1061 c,True,True,False,False,,,,,1.4002800840280096,1.36,False,True,,
+GJ 1061 d,True,True,True,False,,,,,0.6004805767690767,0.57,False,True,,
+GJ 251 c,True,True,True,False,,,,,0.404,0.42,False,False,,
+GJ 273 b,True,True,False,False,,,,,1.065340084174765,1.22,False,False,,
+GJ 667 C c,True,True,False,False,,,,,0.8775755326615541,0.92,False,False,,
+GJ 667 C e,True,True,True,False,,,,,0.30226045813804614,0.32,False,False,,
+GJ 667 C f,True,True,True,False,,,,,0.563553656230803,0.59,False,False,,
+GJ 682 b,True,True,False,False,,,,,0.31350482574419064,1.27,False,False,,
+K2-288 B b,True,True,True,False,2,4,1217,77,0.4368,0.43,False,False,,
+K2-3 d,True,True,False,False,2,4,524,14,1.4459996078856283,1.45,False,False,,
+K2-72 e,True,True,False,False,2,4,1215,5,1.2073265559464814,1.12,False,False,,
+Kepler-1229 b,True,True,True,False,3,5,388,25,0.524,0.49,False,False,,
+Kepler-1410 b,True,True,False,False,3,5,325,17,1.06,1.34,False,False,,
+Kepler-1544 b,True,True,True,False,3,5,15,20,0.833,0.84,False,False,,
+Kepler-1649 c,True,True,False,False,2,4,1481,4,0.75,1.12,False,False,,
+Kepler-1652 b,True,True,True,False,2,4,730,13,0.81,0.84,False,False,,
+Kepler-186 f,True,True,True,False,3,5,340,100,0.3,0.43,False,False,,
+Kepler-296 e,True,True,False,False,2,4,690,15,1.41,1.42,False,False,,
+Kepler-296 f,True,True,True,False,2,5,530,29,0.62,0.62,False,False,,
+Kepler-442 b,True,True,True,False,3,5,96,11,0.66,0.89,False,False,,
+Kepler-452 b,True,True,True,False,3,5,1,9,1.1,0.97,False,False,,
+Kepler-62 e,True,True,False,False,3,5,20,16,1.352,1.19,False,False,,
+Kepler-62 f,True,True,True,False,3,5,9,31,0.5,0.42,False,False,,
+L 98-59 f,True,True,False,False,,,,,1.1010663485881909,1.07,False,True,,
+LHS 1140 b,True,True,True,False,2,4,1602,62,0.43,0.43,False,True,,
+LP 890-9 c,True,True,False,False,2,4,2613,6,0.906,0.9,False,False,,
+Proxima Cen b,True,True,True,False,,,,,0.641,0.64,False,False,,
+Ross 508 b,True,True,False,False,,,,,1.3203656533029684,1.31,False,False,,
+TOI-1266 d,True,True,False,False,,,,,1.3,1.13,False,False,,
+TOI-700 d,True,True,False,False,2,4,857,1,0.850750693313378,0.97,False,True,,
+TOI-700 e,True,True,False,False,2,4,992,2,1.272216222684725,1.44,False,True,,
+TOI-715 b,True,True,True,False,2,4,1762,19,0.67,0.67,False,False,,
+TRAPPIST-1 d,True,True,False,False,2,4,3341,3,1.1150390587740144,1.11,False,False,limits evaluated at 2600 K (star is 2566 K),
+TRAPPIST-1 e,True,True,True,False,2,4,3125,8,0.6460084013938906,0.65,False,False,limits evaluated at 2600 K (star is 2566 K),
+TRAPPIST-1 f,True,True,True,False,2,4,2884,56,0.3730189134522997,0.37,False,False,limits evaluated at 2600 K (star is 2566 K),
+TRAPPIST-1 g,True,True,True,False,2,4,2751,133,0.25200054512816883,0.25,False,False,limits evaluated at 2600 K (star is 2566 K),
+Teegarden's Star c,True,True,True,False,,,,,0.3502803364486281,0.53,False,False,,
+Wolf 1061 c,True,True,False,False,,,,,1.307937102275355,1.34,False,False,,
+Wolf 1069 b,True,True,True,False,,,,,0.652,0.65,False,False,,
+GJ 3378 b,True,False,False,False,,,,,0.91,,True,True,,new since Bohl's download (first released after 2025-12-20)
+Gl 725 B c,True,False,False,False,,,,,0.4742,,True,True,,new since Bohl's download (first released after 2025-12-20)
+Kepler-283 c,True,False,False,False,3,5,147,18,0.949,1.3,False,False,,"Bohl has it in their HZ but not as rocky (their R=2.18, M=None; ours R=1.82, M=3.97)"
+Kepler-438 b,True,False,False,False,2,4,638,7,1.4,,False,False,,not in Bohl's HZ at all: different stellar or orbital parameters (their flux not published)
+Kepler-440 b,True,False,False,False,3,5,208,22,1.2,,False,False,,not in Bohl's HZ at all: different stellar or orbital parameters (their flux not published)
+Ross 128 b,True,False,False,False,,,,,1.3893794038053757,,False,False,,not in Bohl's HZ at all: different stellar or orbital parameters (their flux not published)
+TOI-2094 b,True,False,False,False,2,4,1406,21,0.98,,False,True,,not in Bohl's HZ at all: different stellar or orbital parameters (their flux not published); also updated in the archive after Bohl's download
+Teegarden's Star b,True,False,False,False,,,,,1.0804863282962316,,False,False,,not in Bohl's HZ at all: different stellar or orbital parameters (their flux not published)
+GJ 3323 b,False,True,False,False,,,,,2.651073616645575,1.21,False,False,,flux differs: ours 2.65 vs Bohl 1.21 S⊕
+K2-239 d,False,True,False,False,2,4,1850,104,3.4099,1.49,False,False,,flux differs: ours 3.41 vs Bohl 1.49 S⊕
+Kepler-1606 b,False,True,False,False,3,5,8,30,1.29,1.15,False,False,,"different rocky verdict: ours not rocky (R=2.07, M=4.94) vs Bohl R=1.93, M=None"
+Kepler-441 b,False,True,True,False,3,5,119,203,0.21,0.27,False,False,,flux differs: ours 0.21 vs Bohl 0.27 S⊕

@@ -1,0 +1,5 @@
+Downloaded: 2026-10-24T19:04:38
+Endpoint: https://exoplanetarchive.ipac.caltech.edu/TAP/sync
+Format: csv
+Query:
+SELECT * FROM di_stars_exep

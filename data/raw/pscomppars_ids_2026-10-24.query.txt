@@ -1,0 +1,5 @@
+Downloaded: 2026-10-24T19:04:40
+Endpoint: https://exoplanetarchive.ipac.caltech.edu/TAP/sync
+Format: csv
+Query:
+SELECT pl_name, hostname, hip_name, tic_id, hd_name, gaia_dr3_id FROM pscomppars

@@ -1,0 +1,5 @@
+Downloaded: 2026-10-24T19:04:43
+Endpoint: https://exoplanetarchive.ipac.caltech.edu/TAP/sync
+Format: csv
+Query:
+SELECT pl_name, default_flag, pl_refname, pl_insol, pl_orbsmax, pl_orbper, pl_orbeccen, st_teff, st_rad, st_mass, st_lum, st_refname, releasedate FROM ps WHERE pl_name IN ('GJ 682 b', 'Kepler-1649 c', 'Kepler-441 b')

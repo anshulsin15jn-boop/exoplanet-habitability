@@ -1,0 +1,3 @@
+Downloaded: 2026-10-24T19:04:41
+URL: https://zenodo.org/api/records/18134528/files/All_HZ_Gaia_NEA.csv/content
+Bohl, Lawrence, Lowry & Kaltenegger (2026), MNRAS, 'Probing the Limits of Habitability', All HZ planets (Gaia DR3 + NEA). Zenodo 10.5281/zenodo.18134528, licence CC-BY-4.0.

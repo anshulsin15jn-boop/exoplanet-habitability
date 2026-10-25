@@ -101,9 +101,10 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
 - **Phase 6 rule (user decision):** set aside ONLY `new_since_bohl` planets (157). Planets that were only
   `updated_since_bohl` stay in the comparison and are flagged as a possible reason for disagreement.
 - Match planet names with Bohl et al. by lowercase + collapsed spaces (`normalize_name`).
-- **Phase 6 to-do (user request):** compare the `pscomppars` values with the archive's default solution
-  (`ps` table, `default_flag = 1`) for GJ 682 b, Kepler-1649 c and Kepler-441 b, to explain their flux gaps
-  (up to 4x) with Bohl et al. (Bohl used NEA default values + Gaia DR3 stellar updates).
+- Default-solution check (done in Phase 6): GJ 682 b composite L (Tuomi 2014) is 3.4x below its own R/Teff ->
+  Bohl's flux more trustworthy; Kepler-1649 c Vanderburg 2020 is self-consistent (0.75) -> ours more
+  trustworthy (Bohl likely used the KOI-table a = 0.0649 AU; inference); Kepler-441 b Torres 2015 a = 0.64 AU
+  contradicts Kepler's law (0.569 AU) -> Bohl's ~0.27 more trustworthy.
 
 ## Clustering rules (Phase 5, user approved; code in `src/clustering.py`)
 - Cluster only measured-radius planets with all four features (4,622): log10 radius, log10 `hz_flux`,
@@ -151,4 +152,11 @@ py -3.14 -m venv .venv-pandas2
 - Phase 6: compare with NASA research (Kopparapu, HWO stars, Bohl et al.)
 - Final: notebook runs top to bottom, tests pass, CSVs in outputs/, figures/, README.md
 
-**Current phase:** Phase 5 complete (k = 4 clusters, Earth similarity scores). Next: Phase 6.
+## Comparison rules (Phase 6, user approved; code in `src/compare.py`)
+- HWO target stars: archive table `DI_STARS_EXEP` (164 stars, no Gaia IDs). Crossmatch by HIP and TIC
+  **numbers** (`compare.catalog_number`), never by name: IDs find 29 hosts, names only 8.
+- Bohl answer keys: Zenodo Table 1 (45 empirical), 3D subset (24), All HZ file (290, used for reasons).
+- Precision/recall reported with and without `new_since_bohl`; `disagreement_reason` explains every mismatch.
+- Deliverables: `outputs/hz_candidates.csv`, `outputs/comparison_table.csv`.
+
+**Current phase:** Phase 6 complete (precision 0.84 / 0.87 without new planets, recall 0.91). Next: final deliverables (README, full notebook run, outputs check).
