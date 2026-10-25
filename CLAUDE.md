@@ -10,12 +10,6 @@ research:
 - Bohl et al. (2026), "Probing the Limits of Habitability: A Catalogue of Rocky Exoplanets
   in the Habitable Zone" (arXiv 2501.14054).
 
-## About the user
-College student learning data science. Comfortable with pandas, basic Python, Calculus I & II,
-and intro statistics. Has **not** taken linear algebra.
-- Before any code that uses a new concept, explain the concept in 2-3 plain sentences.
-- Prefer clear, readable code over clever code.
-
 ## Folder layout
 ```
 data/raw/          untouched archive downloads, dated filenames, COMMITTED for reproducibility
@@ -41,8 +35,10 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
    confirmation.
 7. Commit messages: a specific summary line (e.g. "Phase 3: compute stellar flux, habitable zones,
    and candidate table") plus a short body listing the main changes. Every phase summary shows the
-   commit hash next to the full commit message. History was never pushed; reword only unpushed commits,
-   and only after showing the plan.
+   commit hash next to the full commit message. Reword only unpushed commits, and only after showing
+   the plan. No attribution trailers (Co-Authored-By, Claude-Session) in commit messages.
+8. Before any code that uses a new concept, explain the concept in 2-3 plain sentences, and avoid
+   linear algebra in explanations. Prefer clear, readable code over clever code.
 
 ## Data rules
 - Download from the archive's TAP API once; save the raw CSV in `data/raw/` with the download
