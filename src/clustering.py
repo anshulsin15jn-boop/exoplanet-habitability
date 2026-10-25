@@ -56,6 +56,18 @@ def order_clusters(labels, sort_values):
     return np.array([new_number[label] for label in labels]), new_number
 
 
+def earth_similarity_index(flux, radius):
+    """Simplified Earth Similarity Index from stellar flux S and radius R, both in Earth units.
+
+    ESI = 1 - sqrt(0.5 * [((S - 1)/(S + 1))^2 + ((R - 1)/(R + 1))^2])
+    Source: Dabhade et al. (2025, arXiv:2512.00899), eq. 7, after Schulze-Makuch et al. (2011).
+    Earth scores exactly 1; the score falls toward 0 for planets unlike Earth.
+    """
+    flux_term = ((flux - 1) / (flux + 1)) ** 2
+    radius_term = ((radius - 1) / (radius + 1)) ** 2
+    return 1 - np.sqrt(0.5 * (flux_term + radius_term))
+
+
 def similarity_to_earth(scaled, earth_scaled):
     """Similarity score 1 / (1 + distance), where distance is measured in the scaled feature space.
 

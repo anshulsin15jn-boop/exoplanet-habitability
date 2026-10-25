@@ -38,6 +38,20 @@ def test_similarity_is_one_for_earth_and_lower_further_away():
     assert scores[3] == pytest.approx(1 / 6)          # distance 5
 
 
+def test_earth_similarity_index_is_one_for_earth():
+    assert clustering.earth_similarity_index(1.0, 1.0) == 1.0
+
+
+def test_earth_similarity_index_hand_computed_values():
+    # S = R = 3: each term is ((3 - 1) / (3 + 1))^2 = 0.25, so ESI = 1 - sqrt(0.25) = 0.5
+    assert clustering.earth_similarity_index(3.0, 3.0) == pytest.approx(0.5)
+    # S = 1, R = 2: only the radius term, (1/3)^2; ESI = 1 - sqrt(0.5 / 9)
+    assert clustering.earth_similarity_index(1.0, 2.0) == pytest.approx(1 - np.sqrt(0.5 / 9))
+    # Works on arrays
+    values = clustering.earth_similarity_index(np.array([1.0, 3.0]), np.array([1.0, 3.0]))
+    assert values == pytest.approx([1.0, 0.5])
+
+
 def three_blobs():
     rng = np.random.default_rng(0)
     centers = np.array([[0, 0], [10, 0], [0, 10]])

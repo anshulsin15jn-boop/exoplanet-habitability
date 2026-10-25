@@ -111,8 +111,8 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
   with adjusted Rand index over seeds 0-4. Clusters renumbered by median flux (hottest = 0).
 - Main `cluster` uses k = 4 (best silhouette tie, stable); `cluster_k6` kept for comparison. k >= 5 always
   isolates KOI-55 b/c (27,730 K star).
-- Similarity to Earth = 1 / (1 + distance) in scaled space: `similarity_4feat` and `similarity_radius_flux`
-  (unweighted ESI-style analogue; PHL's exact ESI equation was not verifiable, so not reproduced).
+- Similarity to Earth: `similarity_4feat` = 1 / (1 + distance) in scaled space; `esi` = PHL simplified ESI
+  (Dabhade et al. 2025, arXiv:2512.00899 eq. 7; user-supplied, verified). Ranks: `rank_4feat`, `rank_esi`.
   Output: `data/processed/planets_clustered.csv`.
 - Cluster plots: 3 hues + dark neutral for the giants, plus marker shapes (4 hues fail the all-pairs check).
 
