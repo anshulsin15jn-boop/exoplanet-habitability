@@ -99,6 +99,10 @@ jupyter nbconvert --to notebook --execute notebooks/exoplanet_habitability.ipynb
 
 I built this project with Claude Code as a pair programmer. I made the scientific decisions at each phase. These decisions include excluding microlensing planets, never using a mass computed from a radius to confirm a rocky label, applying a strict model temperature range, keeping the four TRAPPIST-1 planets as flagged candidates, setting aside only planets released after the Bohl et al. download, and correcting two fluxes with internally consistent values rather than adopting published values from the comparison catalog.
 
+## License
+
+The code in this repository is released under the MIT License (see `LICENSE`). The data files keep their original terms, including the NASA Exoplanet Archive's terms for archive data and CC BY 4.0 for the Bohl et al. files.
+
 ## Data sources and acknowledgments
 
 This research has made use of the NASA Exoplanet Archive, which is operated by the California Institute of Technology, under contract with the National Aeronautics and Space Administration under the Exoplanet Exploration Program.
