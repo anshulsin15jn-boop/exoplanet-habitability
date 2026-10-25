@@ -37,6 +37,8 @@ outputs/           final CSV deliverables (candidate table, Phase 6 comparison t
    and candidate table") plus a short body listing the main changes. Every phase summary shows the
    commit hash next to the full commit message. Reword only unpushed commits, and only after showing
    the plan. No attribution trailers (Co-Authored-By, Claude-Session) in commit messages.
+   The repo is public at https://github.com/anshulsin15jn-boop/exoplanet-habitability (remote `origin`):
+   everything up to 78d392b is pushed, so never rewrite or force-push that history.
 8. Before any code that uses a new concept, explain the concept in 2-3 plain sentences, and avoid
    linear algebra in explanations. Prefer clear, readable code over clever code.
 
